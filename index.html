@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
@@ -56,43 +56,43 @@
           <label for="lim-inf-range">
             Limite inferior Rango
           </label>
-          <input type="text" inputmode="decimal" id="lim-inf-range" />
+          <input type="text" inputmode="numeric" id="lim-inf-range" />
         </li>
         <li class="li-calcSpan li-variable hidden">
           <label for="lim-sup-range">
             Limite Superior Rango
           </label>
-          <input type="text" inputmode="decimal" id="lim-sup-range" />
+          <input type="text" inputmode="numeric" id="lim-sup-range" />
         </li>
         <li class="li-salmA li-var-sal li-sal-inst li-var-sal-psi li-variable hidden">
           <label for="span">
             Span
           </label>
-          <input type="text" inputmode="decimal" id="span" />
+          <input type="text" inputmode="numeric" id="span" />
         </li>
         <li class="li-salmA li-variable hidden">
           <label for="current">
             Current (4-20) mA
           </label>
-          <input type="text" inputmode="decimal" id="current" />
+          <input type="text" inputmode="numeric" id="current" />
         </li>
         <li class="li-var-sal li-variable hidden">
           <label for="measured-var">
             Variable medida
           </label>
-          <input type="text" inputmode="decimal" id="measured-var" />
+          <input type="text" inputmode="numeric" id="measured-var" />
         </li>
         <li class="li-sal-inst li-variable hidden" id="lispan">
           <label for="salidaInst">
             Salida del instrumento (3-15) psi
           </label>
-          <input type="text" inputmode="decimal" id="salidaInst" />
+          <input type="text" inputmode="numeric" id="salidaInst" />
         </li>
         <li class="li-var-sal-psi li-variable hidden">
           <label for="variable">
             Variable
           </label>
-          <input type="text" inputmode="decimal" id="variable" />
+          <input type="text" inputmode="numeric" id="variable" />
         </li>
         <li class="li-fixed">
           <label for="result">
@@ -104,11 +104,10 @@
     </div>
 
     <div class="buttons">
-      <button type="click" id="resultBtn">=</button>
-      <button type="click" id="clearBtn">Clear</button>
+      <button type="button" id="resultBtn">=</button>
+      <button type="button" id="clearBtn">Clear</button>
     </div>
-    <!--    <script type="module" src="../SRC/app.js" defer></script>
-    Al usar modulos defer ya no es necesario, lo hace automatico -->
+
     <script type="module" src="./SRC/app.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
@@ -123,7 +122,6 @@
         });
       }
     </script>
-
   </div>
 </body>
 
