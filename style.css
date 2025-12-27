@@ -81,7 +81,7 @@ li {
   flex-direction: column;
   gap: 1.5rem;
 
-  width: 80%;
+  width: 90%;
   padding: 1.75rem;
 
   border: 1px solid var(--border);
@@ -91,17 +91,17 @@ li {
   transition: all 0.3s ease;
 }
 
-.calculator-container:hover {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.12);
-  transform: translateY(-2px);
-}
-
 /* Pantallas grandes */
 @media (min-width: 1024px) {
   .calculator-container {
     width: 50%;
     margin: 2rem 1.5rem;
   }
+}
+
+.calculator-container:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
 }
 
 .calculation-options {
