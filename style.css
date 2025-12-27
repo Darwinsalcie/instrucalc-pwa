@@ -1,0 +1,284 @@
+/* ---------------  RESET  --------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* quita flechas de number */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Variables CSS - Moderno y Minimalista */
+:root {
+  --sm: 0.5rem;
+  --m: 1rem;
+  --xl: 2rem;
+  --xxl: 3rem;
+
+  /* Colores modernos con mejor contraste */
+  --primary: #2563eb;
+  --primary-light: #3b82f6;
+  --primary-dark: #1e40af;
+  
+  --border: #e5e7eb;
+  --border-focus: #93c5fd;
+  
+  --bg-soft: #f8fafc;
+  --bg-card: #ffffff;
+  
+  --text: #0f172a;
+  --text-light: #64748b;
+  --muted: #94a3b8;
+  
+  /* Sombras sutiles */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+header {
+  padding: var(--m);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  border-bottom: none;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+@media (min-width: 1024px) {
+  header {
+    justify-content: flex-start;
+    padding-left: var(--xxl);
+  }
+}
+
+li {
+  list-style: none;
+}
+
+.calculator-container {
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  width: 80%;
+  padding: 1.75rem;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-lg);
+  transition: all 0.3s ease;
+}
+
+.calculator-container:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Pantallas grandes */
+@media (min-width: 1024px) {
+  .calculator-container {
+    width: 50%;
+    margin: 2rem 1.5rem;
+  }
+}
+
+.calculation-options {
+  margin-bottom: var(--m);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+
+.calculation-options li {
+  margin-bottom: 0.7rem;
+  transition: all 0.2s ease;
+}
+
+.calculation-options li:hover {
+  transform: translateX(4px);
+}
+
+.calculation-options label {
+  font-size: 0.95rem;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.calculation-options label:hover {
+  color: var(--primary);
+}
+
+.calculation-options input[type="radio"] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+}
+
+.form {
+  margin-bottom: var(--m);
+}
+
+.form li {
+  margin-bottom: 1rem;
+}
+
+.form label {
+  font-size: 0.875rem;
+  color: var(--text-light);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease;
+}
+
+.form li:focus-within label {
+  color: var(--primary);
+}
+
+.form input {
+  padding: 0.65rem 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  width: 100%;
+  font-size: 0.95rem;
+  background: var(--bg-soft);
+  transition: all 0.2s ease;
+  font-family: inherit;
+  color: var(--text);
+}
+
+.form input:hover {
+  border-color: var(--border-focus);
+  background: var(--bg-card);
+}
+
+.form input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--bg-card);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form input[readonly] {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  border-color: var(--border);
+  cursor: not-allowed;
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+.hidden {
+  display: none;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.buttons button {
+  padding: 0.65rem 1.5rem;
+  cursor: pointer;
+
+  border: 2px solid transparent;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+
+  width: 30%;
+  min-width: 100px;
+  
+  box-shadow: var(--shadow-md);
+  transition: all 0.2s ease;
+}
+
+.buttons button:hover {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 12px -2px rgba(37, 99, 235, 0.3);
+}
+
+.buttons button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Botón Clear con estilo secundario */
+.buttons button#clearBtn {
+  background: var(--bg-card);
+  color: var(--text);
+  border: 2px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.buttons button#clearBtn:hover {
+  background: var(--bg-soft);
+  border-color: var(--muted);
+  box-shadow: var(--shadow-md);
+}
+
+.buttons button#clearBtn:active {
+  background: #e2e8f0;
+}
+
+/* Animación sutil al cargar */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.calculator-container {
+  animation: fadeIn 0.5s ease;
+}
+
+/* Mejora para campos con error (opcional para futuro) */
+.form input.error {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+
+/* Transiciones suaves para elementos que aparecen/desaparecen */
+.form li {
+  transition: all 0.3s ease;
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+  <header>
+    <div>Calculadora</div>
+  </header>
+  <div class="calculator-container">
+    <div class="calculation-options" id="form">
+      <ul>
+        <li>
+          <label for="calcSpan">
+            <input type="radio" name="calc-option" id="calcSpan">
+            Calcular Span
+          </label>
+        </li>
+        <li>
+          <label for="sal-var">
+            <input type="radio" name="calc-option" id="sal-var">
+            Salida (mA) a variable medida
+          </label>
+        </li>
+        <li>
+          <label for="var-sal">
+            <input type="radio" name="calc-option" id="var-sal">
+            De variable medida a Salida (mA)
+          </label>
+        </li>
+        <li>
+          <label for="sal-inst">
+            <input type="radio" name="calc-option" id="sal-inst">
+            De salida del instrumento (3-15) psi a variable
+          </label>
+        </li>
+        <li>
+          <label for="var-sal-psi">
+            <input type="radio" name="calc-option" id="var-sal-psi">
+            De Variable a Salida (3-15) psi
+          </label>
+        </li>
+      </ul>
+    </div>
+
+    <div class="form">
+      <ul>
+        <li class="li-fixed">
+          <label for="lim-inf-range">
+            Limite inferior Rango
+          </label>
+          <input type="number" id="lim-inf-range" />
+        </li>
+        <li class="li-calcSpan li-variable hidden">
+          <label for="lim-sup-range">
+            Limite Superior Rango
+          </label>
+          <input type="number" id="lim-sup-range" />
+        </li>
+        <li class="li-salmA li-var-sal li-sal-inst li-var-sal-psi li-variable hidden">
+          <label for="span">
+            Span
+          </label>
+          <input type="number" id="span" />
+        </li>
+        <li class="li-salmA li-variable hidden">
+          <label for="current">
+            Current (4-20) mA
+          </label>
+          <input type="number" id="current" />
+        </li>
+        <li class="li-var-sal li-variable hidden">
+          <label for="measured-var">
+            Variable medida
+          </label>
+          <input type="number" id="measured-var" />
+        </li>
+        <li class="li-sal-inst li-variable hidden" id="lispan">
+          <label for="salidaInst">
+            Salida del instrumento (3-15) psi
+          </label>
+          <input type="number" id="salidaInst" />
+        </li>
+        <li class="li-var-sal-psi li-variable hidden">
+          <label for="variable">
+            Variable
+          </label>
+          <input type="number" id="variable" />
+        </li>
+        <li class="li-fixed">
+          <label for="result">
+            Resultado
+          </label>
+          <input class="input-result" type="text" id="result" readonly />
+        </li>
+      </ul>
+    </div>
+
+    <div class="buttons">
+      <button type="click" id="resultBtn">=</button>
+      <button type="click" id="clearBtn">Clear</button>
+    </div>
+    <!--    <script type="module" src="../SRC/app.js" defer></script>
+    Al usar modulos defer ya no es necesario, lo hace automatico -->
+    <script type="module" src="./SRC/app.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register("./sw.js")
+            .then(reg => {
+              console.log("✅ Service Worker registrado:", reg.scope);
+            })
+            .catch(err => {
+              console.error("❌ Error al registrar SW:", err);
+            });
+        });
+      }
+    </script>
+
+  </div>
+</body>
+
+</html>
