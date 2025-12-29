@@ -7,6 +7,7 @@
   <title>Instrucalc</title>
   <link rel="icon" type="image/x-icon" href="./icon-192.png">
   <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./validation-styles.css">
   <link rel="manifest" href="manifest.json">
 </head>
 
@@ -56,43 +57,50 @@
           <label for="lim-inf-range">
             Limite inferior Rango (LRV)
           </label>
-          <input type="text" inputmode="numeric" id="lim-inf-range" />
+          <input type="number" step="any" inputmode="decimal" id="lim-inf-range" required 
+                 title="Ingrese el límite inferior del rango" />
         </li>
         <li class="li-calcSpan li-variable hidden">
           <label for="lim-sup-range">
             Limite Superior Rango (URV)
           </label>
-          <input type="text" inputmode="numeric" id="lim-sup-range" />
+          <input type="number" step="any" inputmode="decimal" id="lim-sup-range" required 
+                 title="Ingrese el límite superior del rango" />
         </li>
         <li class="li-salmA li-var-sal li-sal-inst li-var-sal-psi li-variable hidden">
           <label for="span">
             Span
           </label>
-          <input type="text" inputmode="numeric" id="span" />
+          <input type="number" step="any" inputmode="decimal" id="span" min="0.001" required 
+                 title="Ingrese el span (debe ser mayor a 0)" />
         </li>
         <li class="li-salmA li-variable hidden">
           <label for="current">
             Current (4-20) mA
           </label>
-          <input type="text" inputmode="numeric" id="current" />
+          <input type="number" step="any" inputmode="decimal" id="current" min="4" max="20" required 
+                 title="Ingrese la corriente entre 4 y 20 mA" />
         </li>
         <li class="li-var-sal li-variable hidden">
           <label for="measured-var">
             Variable medida
           </label>
-          <input type="text" inputmode="numeric" id="measured-var" />
+          <input type="number" step="any" inputmode="decimal" id="measured-var" required 
+                 title="Ingrese la variable medida" />
         </li>
         <li class="li-sal-inst li-variable hidden" id="lispan">
           <label for="salidaInst">
             Salida del instrumento (3-15) psi
           </label>
-          <input type="text" inputmode="numeric" id="salidaInst" />
+          <input type="number" step="any" inputmode="decimal" id="salidaInst" min="3" max="15" required 
+                 title="Ingrese la salida entre 3 y 15 psi" />
         </li>
         <li class="li-var-sal-psi li-variable hidden">
           <label for="variable">
             Variable
           </label>
-          <input type="text" inputmode="numeric" id="variable" />
+          <input type="number" step="any" inputmode="decimal" id="variable" required 
+                 title="Ingrese la variable" />
         </li>
         <li class="li-fixed">
           <label for="result" id="result-lbl">
@@ -131,4 +139,4 @@
   </div>
 </body>
 
-</html>
+</html>y

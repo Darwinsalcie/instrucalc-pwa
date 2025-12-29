@@ -91,6 +91,11 @@ const handleOptionChange = (op) => {
   });
 };
 
+const isValidNumber = (value) => {
+  return value !== "" && !Number.isNaN(value) && Number.isFinite(value);
+};
+
+
 const calculate = () => {
 
   // 🔧 FIX: detectar radio seleccionado aunque no haya change
@@ -115,46 +120,142 @@ const calculate = () => {
   let result = null;
   percent = null;
 
+  // Validación según el modo seleccionado
   switch (selected) {
     case 'calcSpan':
+      if (!isValidNumber(limInf)) {
+        alert("Por favor ingrese un valor válido para el Límite Inferior (LRV)");
+        return;
+      }
+      if (!isValidNumber(limSup)) {
+        alert("Por favor ingrese un valor válido para el Límite Superior (URV)");
+        return;
+      }
       result = Calculadora.calcularSpan(limInf, limSup);
+      if (result <= 0) {
+        alert("Error: El URV debe ser mayor que el LRV");
+        return;
+      }
       calculatedSpan = result;
       break;
 
     case 'sal-var':
+      if (!isValidNumber(limInf)) {
+        alert("Por favor ingrese un valor válido para el Límite Inferior (LRV)");
+        return;
+      }
+      if (!isValidNumber(span)) {
+        alert("Por favor ingrese un valor válido para el Span");
+        return;
+      }
+      if (span <= 0) {
+        alert("Error: El Span debe ser mayor que cero");
+        return;
+      }
+      if (!isValidNumber(corrMa)) {
+        alert("Por favor ingrese un valor válido para la Corriente");
+        return;
+      }
+      if (corrMa < 4 || corrMa > 20) {
+        alert("Error: La corriente debe estar entre 4 y 20 mA");
+        return;
+      }
       result = Calculadora.corrienteToVar(limInf, span, corrMa);
       measuredVar = result;
       percent = Calculadora.porcentajePV(limInf, span, measuredVar);
       break;
 
     case 'var-sal':
+      if (!isValidNumber(limInf)) {
+        alert("Por favor ingrese un valor válido para el Límite Inferior (LRV)");
+        return;
+      }
+      if (!isValidNumber(span)) {
+        alert("Por favor ingrese un valor válido para el Span");
+        return;
+      }
+      if (span <= 0) {
+        alert("Error: El Span debe ser mayor que cero");
+        return;
+      }
+      if (!isValidNumber(measuredVarField)) {
+        alert("Por favor ingrese un valor válido para la Variable Medida");
+        return;
+      }
       result = Calculadora.varToCorrienteMa(limInf, span, measuredVarField);
+      if (!isValidNumber(result) || result < 4 || result > 20) {
+        alert("Advertencia: La corriente calculada está fuera del rango 4-20 mA");
+      }
       calculatedCurrent = result;
       percent = Calculadora.porcentajePV(limInf, span, measuredVarField);
       break;
 
     case 'sal-inst':
+      if (!isValidNumber(limInf)) {
+        alert("Por favor ingrese un valor válido para el Límite Inferior (LRV)");
+        return;
+      }
+      if (!isValidNumber(span)) {
+        alert("Por favor ingrese un valor válido para el Span");
+        return;
+      }
+      if (span <= 0) {
+        alert("Error: El Span debe ser mayor que cero");
+        return;
+      }
+      if (!isValidNumber(salInst)) {
+        alert("Por favor ingrese un valor válido para la Salida del Instrumento");
+        return;
+      }
+      if (salInst < 3 || salInst > 15) {
+        alert("Error: La salida del instrumento debe estar entre 3 y 15 psi");
+        return;
+      }
       result = Calculadora.psiToVar(limInf, span, salInst);
       calcSalInst = result;
       percent = Calculadora.porcentajePV(limInf, span, calcSalInst);
       break;
 
     case 'var-sal-psi':
+      if (!isValidNumber(limInf)) {
+        alert("Por favor ingrese un valor válido para el Límite Inferior (LRV)");
+        return;
+      }
+      if (!isValidNumber(span)) {
+        alert("Por favor ingrese un valor válido para el Span");
+        return;
+      }
+      if (span <= 0) {
+        alert("Error: El Span debe ser mayor que cero");
+        return;
+      }
+      if (!isValidNumber(varSalInst)) {
+        alert("Por favor ingrese un valor válido para la Variable");
+        return;
+      }
       result = Calculadora.varToPsi(limInf, span, varSalInst);
+      if (!isValidNumber(result) || result < 3 || result > 15) {
+        alert("Advertencia: La presión calculada está fuera del rango 3-15 psi");
+      }
       calcVartoSalInst = result;
       percent = Calculadora.porcentajePV(limInf, span, varSalInst);
       break;
   }
 
-  // Resultado
+  // Resultado con manejo de errores
+  if (!isValidNumber(result)) {
+    resultLabel.value = "Error en cálculo";
+    return;
+  }
+  
   if (typeof result === 'number') {
     resultLabel.value = Number.isInteger(result)
       ? result
       : result.toFixed(3);
   }
 
-  // Porcentaje (solo si existe)
-  if (typeof percent === 'number') {
+  // Porcentaje (solo si existe y es válido)
+  if (typeof percent === 'number' && isValidNumber(percent)) {
     percentLabel.value = Number.isInteger(percent)
       ? percent + "%"
       : percent.toFixed(3) + "%";
