@@ -24,6 +24,10 @@ const handleOptionChange = (op) => {
     input.classList.add('hidden');
   });
 
+  // Remover required de todos los inputs que no son el límite inferior
+  const allInputs = document.querySelectorAll('.form input[type="number"]:not(#lim-inf-range)');
+  allInputs.forEach(input => input.removeAttribute('required'));
+
   selected = op.target.id;
   let visibleLis = [];
 
@@ -33,6 +37,8 @@ const handleOptionChange = (op) => {
       percentLabel.value = "";
       resultText.textContent = "Span";
       visibleLis = document.querySelectorAll(".li-calcSpan");
+      // Agregar required a los campos visibles
+      document.getElementById('lim-sup-range').setAttribute('required', 'required');
       break;
 
     case 'sal-var':
@@ -47,6 +53,9 @@ const handleOptionChange = (op) => {
       if (calculatedCurrent !== null) {
         document.getElementById('current').value = calculatedCurrent;
       }
+      // Agregar required a los campos visibles
+      document.getElementById('span').setAttribute('required', 'required');
+      document.getElementById('current').setAttribute('required', 'required');
       break;
 
     case 'var-sal':
@@ -61,6 +70,9 @@ const handleOptionChange = (op) => {
       if (measuredVar !== null) {
         document.getElementById('measured-var').value = measuredVar;
       }
+      // Agregar required a los campos visibles
+      document.getElementById('span').setAttribute('required', 'required');
+      document.getElementById('measured-var').setAttribute('required', 'required');
       break;
 
     case 'sal-inst':
@@ -72,6 +84,9 @@ const handleOptionChange = (op) => {
       if (calcVartoSalInst !== null) {
         document.getElementById('salidaInst').value = calcVartoSalInst;
       }
+      // Agregar required a los campos visibles
+      document.getElementById('span').setAttribute('required', 'required');
+      document.getElementById('salidaInst').setAttribute('required', 'required');
       break;
 
     case 'var-sal-psi':
@@ -83,6 +98,9 @@ const handleOptionChange = (op) => {
       if (calcSalInst !== null) {
         document.getElementById('variable').value = calcSalInst;
       }
+      // Agregar required a los campos visibles
+      document.getElementById('span').setAttribute('required', 'required');
+      document.getElementById('variable').setAttribute('required', 'required');
       break;
   }
 
@@ -120,17 +138,9 @@ const calculate = () => {
   let result = null;
   percent = null;
 
-  // Validación según el modo seleccionado
+  // Validación adicional de lógica de negocio (no cubierta por HTML5)
   switch (selected) {
     case 'calcSpan':
-      if (!isValidNumber(limInf)) {
-        alert("Por favor ingrese un valor válido para el Límite Inferior (LRV)");
-        return;
-      }
-      if (!isValidNumber(limSup)) {
-        alert("Por favor ingrese un valor válido para el Límite Superior (URV)");
-        return;
-      }
       result = Calculadora.calcularSpan(limInf, limSup);
       if (result <= 0) {
         alert("Error: El URV debe ser mayor que el LRV");
@@ -140,24 +150,8 @@ const calculate = () => {
       break;
 
     case 'sal-var':
-      if (!isValidNumber(limInf)) {
-        alert("Por favor ingrese un valor válido para el Límite Inferior (LRV)");
-        return;
-      }
-      if (!isValidNumber(span)) {
-        alert("Por favor ingrese un valor válido para el Span");
-        return;
-      }
       if (span <= 0) {
         alert("Error: El Span debe ser mayor que cero");
-        return;
-      }
-      if (!isValidNumber(corrMa)) {
-        alert("Por favor ingrese un valor válido para la Corriente");
-        return;
-      }
-      if (corrMa < 4 || corrMa > 20) {
-        alert("Error: La corriente debe estar entre 4 y 20 mA");
         return;
       }
       result = Calculadora.corrienteToVar(limInf, span, corrMa);
@@ -166,20 +160,8 @@ const calculate = () => {
       break;
 
     case 'var-sal':
-      if (!isValidNumber(limInf)) {
-        alert("Por favor ingrese un valor válido para el Límite Inferior (LRV)");
-        return;
-      }
-      if (!isValidNumber(span)) {
-        alert("Por favor ingrese un valor válido para el Span");
-        return;
-      }
       if (span <= 0) {
         alert("Error: El Span debe ser mayor que cero");
-        return;
-      }
-      if (!isValidNumber(measuredVarField)) {
-        alert("Por favor ingrese un valor válido para la Variable Medida");
         return;
       }
       result = Calculadora.varToCorrienteMa(limInf, span, measuredVarField);
@@ -191,24 +173,8 @@ const calculate = () => {
       break;
 
     case 'sal-inst':
-      if (!isValidNumber(limInf)) {
-        alert("Por favor ingrese un valor válido para el Límite Inferior (LRV)");
-        return;
-      }
-      if (!isValidNumber(span)) {
-        alert("Por favor ingrese un valor válido para el Span");
-        return;
-      }
       if (span <= 0) {
         alert("Error: El Span debe ser mayor que cero");
-        return;
-      }
-      if (!isValidNumber(salInst)) {
-        alert("Por favor ingrese un valor válido para la Salida del Instrumento");
-        return;
-      }
-      if (salInst < 3 || salInst > 15) {
-        alert("Error: La salida del instrumento debe estar entre 3 y 15 psi");
         return;
       }
       result = Calculadora.psiToVar(limInf, span, salInst);
@@ -217,20 +183,8 @@ const calculate = () => {
       break;
 
     case 'var-sal-psi':
-      if (!isValidNumber(limInf)) {
-        alert("Por favor ingrese un valor válido para el Límite Inferior (LRV)");
-        return;
-      }
-      if (!isValidNumber(span)) {
-        alert("Por favor ingrese un valor válido para el Span");
-        return;
-      }
       if (span <= 0) {
         alert("Error: El Span debe ser mayor que cero");
-        return;
-      }
-      if (!isValidNumber(varSalInst)) {
-        alert("Por favor ingrese un valor válido para la Variable");
         return;
       }
       result = Calculadora.varToPsi(limInf, span, varSalInst);
@@ -269,7 +223,23 @@ calcOptions.forEach(option => {
   option.addEventListener("change", handleOptionChange);
 });
 
-calcButton.addEventListener("click", calculate);
+// Usar el evento submit del form para validación nativa
+const form = document.getElementById('calculatorForm');
+form.addEventListener("submit", (e) => {
+  e.preventDefault(); // Evitar que recargue la página
+  calculate();
+});
+
+// Mantener compatibilidad con el botón directo
+calcButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  // Disparar la validación del form antes de calcular
+  if (form.checkValidity()) {
+    calculate();
+  } else {
+    form.reportValidity(); // Muestra los mensajes de validación del navegador
+  }
+});
 
 clearButton.addEventListener("click", () => {
   const inputs = document.querySelectorAll(".form input");
@@ -283,4 +253,6 @@ clearButton.addEventListener("click", () => {
   calcVartoSalInst = null;
   percent = null;
   percentLabel.value = "";
+  
+  
 });
