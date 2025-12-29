@@ -25,7 +25,14 @@ export const Calculadora = {
     const BIAS = 3;
     const AMP = 12;
     return BIAS + (AMP / span) * (variable - limInf);
+  },
+  
+  porcentajePV(limInf, span, variable) {
+  if (span === 0) return null; // evitar división por cero
+  return ((variable - limInf) / span) * 100;
   }
+
+  
 };
 
 export default Calculadora;

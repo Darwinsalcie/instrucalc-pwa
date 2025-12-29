@@ -26,25 +26,25 @@
         <li>
           <label for="sal-var">
             <input type="radio" name="calc-option" id="sal-var">
-            Salida (mA) a variable medida
+            Corriente mA → Variable medida
           </label>
         </li>
         <li>
           <label for="var-sal">
             <input type="radio" name="calc-option" id="var-sal">
-            De variable medida a Salida (mA)
+            Variable medida → Corriente (mA)
           </label>
         </li>
         <li>
           <label for="sal-inst">
             <input type="radio" name="calc-option" id="sal-inst">
-            De salida del instrumento (3-15) psi a variable
+            Salida del instrumento (3-15) psi → Variable
           </label>
         </li>
         <li>
           <label for="var-sal-psi">
             <input type="radio" name="calc-option" id="var-sal-psi">
-            De Variable a Salida (3-15) psi
+            Variable → Salida del instrumento (3-15) psi
           </label>
         </li>
       </ul>
@@ -54,13 +54,13 @@
       <ul>
         <li class="li-fixed">
           <label for="lim-inf-range">
-            Limite inferior Rango
+            Limite inferior Rango (LRV)
           </label>
           <input type="text" inputmode="numeric" id="lim-inf-range" />
         </li>
         <li class="li-calcSpan li-variable hidden">
           <label for="lim-sup-range">
-            Limite Superior Rango
+            Limite Superior Rango (URV)
           </label>
           <input type="text" inputmode="numeric" id="lim-sup-range" />
         </li>
@@ -95,10 +95,16 @@
           <input type="text" inputmode="numeric" id="variable" />
         </li>
         <li class="li-fixed">
-          <label for="result">
+          <label for="result" id="result-lbl">
             Resultado
           </label>
           <input class="input-result" type="text" id="result" readonly />
+        </li>
+        <li class="li-percent li-variable hidden">
+          <label for="result">
+            Procentaje % de PV respecto al SPAN
+          </label>
+          <input class="input-percent" type="text" id="percent" readonly />
         </li>
       </ul>
     </div>
